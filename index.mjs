@@ -20,9 +20,11 @@ import { User } from './models/User.mjs';
 
 //Import routes
 import { denkesRoutes } from './routes/denkeRoutes.mjs';
+import { authRoutes } from './routes/authRoutes.mjs';
 
 //Import controller
-import { DenkeController } from './controllers/DenkeController.mjs';
+import DenkeController from './controllers/DenkeController.mjs';
+import AuthController from './controllers/AuthController.mjs';
 
 const app = express();
 
@@ -72,8 +74,8 @@ app.use((req, res, next) => {
 //Routers
 
 app.get('/', DenkeController.showDenkes);
-
 app.use('/denkes', denkesRoutes);
+app.use('/', authRoutes);
 
 db
     .sync()

@@ -1,5 +1,5 @@
 import express from 'express';
-import { DenkeController } from "../controllers/DenkeController.mjs";
+import DenkeController from "../controllers/DenkeController.mjs";
 
 // Controller
 

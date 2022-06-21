@@ -15,15 +15,23 @@
     <nav id="navbar">
       <img src="assets/img/bulb.png" id="logo" alt="Pensamentos"></a>
       <ul>
-        <li><a href="/">Denker</a></li>
-        {{!-- PLANNED: Urls pós-autenticação --}}
-        <li><a href="/login">Entrar</a></li>
-        <li><a href="/register">Registrar</a></li>
+        {{#if session.userid}}
+          <li><a href="/">Início</a></li>
+          <li><a href="/denkes/dashboard">Dashboard</a></li>
+          <li><a href="/logout">Sair</a></li>
+        {{else}}
+          <li><a href="/login">Entrar</a></li>
+          <li><a href="/register">Registrar</a></li>
+        {{/if}}
       </ul>
     </nav>
   </header>
   <main class="container">
-    {{!--  PLANNED: Mensagens --}}
+    {{#if messages.message}}
+    <div class="message">
+      {{messages.message}}
+    </div>
+    {{/if}}
     {{{ body }}}
   </main>
   <footer>

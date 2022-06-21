@@ -6,6 +6,10 @@ export const User = db.define('User', {
     type: DataTypes.STRING,
     require: true
   },
+  username: {
+    type: DataTypes.STRING,
+    require: true
+  },
   email: {
     type: DataTypes.STRING,
     require: true

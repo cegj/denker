@@ -37,11 +37,97 @@
   color: #FF6982;
 }
 
+/* MESSAGES */
+
+.message{
+  padding: 1em;
+  color: #e8f7ff;
+  background-color: #004464;
+  border: 1px solid #000242;
+  border-radius: 5px;
+  text-align: center;
+  margin: 0 auto 2em;
+  max-width: 40%;
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.3);
+}
+
 /* CONTEINER */
 
 .container {
   min-height: 60vh;
   padding: 2em;
+}
+
+/* LOGIN E REGISTER */
+
+.auth-container {
+  max-width: 450px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-container h2 {
+  margin-bottom: 1em;
+  color: #fff;
+  border-left: 13px solid #FF6982;
+  padding-left: .3em;
+}
+
+.auth-container a {
+  color: #FF6982;
+}
+
+.form-control {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+}
+
+.form-control label {
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+.form-control input, 
+.form-control textarea {
+  padding: 9px;
+  border-radius: 3px;
+  border: 1px solid #FF6982;
+
+}
+
+input[type="submit"],
+.btn {
+  background-color: transparent;
+  color: #FF6982;
+  border: 2px solid #FF6982;
+  padding: .5em 1.2em;
+  margin-bottom: 1em;
+  font-size: 1em;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+input[type="submit"]:hover,
+.btn:hover {
+  background-color: #FF6982;
+  color: #fff; 
+}
+
+input[type="submit"][disabled="true"],
+.btn[disabled="true"]{
+  background-color: transparent;
+  color: #646464;
+  border: 2px solid #141414;
+}
+
+#confirmMsg {
+  font-size: 0.8rem;
+  text-align: right;
 }
 
 /* FOOTER */
