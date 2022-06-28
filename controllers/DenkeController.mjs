@@ -1,9 +1,40 @@
 import { Denke } from "../models/Denke.mjs";
 import { User } from "../models/User.mjs";
+import { Op } from "sequelize";
 
 export default class DenkeController{
   static async showDenkes(req, res){
-    res.render('denkes/home')
+
+    let search = '';
+    if (req.query.search){
+      search = req.query.search
+    }
+
+    let order = 'DESC'
+
+    if(req.query.order === 'old'){
+      order = 'ASC';
+    }
+
+    const denkesData = await Denke.findAll({
+      include: User,
+      where: {
+        title: {[Op.like]: `%${search}%`}
+      },
+      order: [['updatedAt', order]]
+    });
+
+    const denkes = denkesData.map((result) => result.get({plain: true}))
+
+    console.log(denkes)
+
+    let thereIsNoDenke;
+
+    if (denkes.length === 0){
+      thereIsNoDenke = true;
+    }
+
+    res.render('denkes/home', {denkes, thereIsNoDenke, search})
   }
 
   static async dashboard(req, res){
@@ -35,25 +66,23 @@ export default class DenkeController{
     res.render('denkes/add')
   }
 
-  
   static async createDenkeSave(req, res){
-        
+
     const denke = {
-      title: req.body.denke,
-      userId: req.session.userid
+      title: req.body.title,
+      UserId: req.session.userid,
     }
 
-    try{
-      await Denke.create(denke);
+    console.log(denke)
 
-      req.flash('message', 'Denke criado!')
-  
+    Denke.create(denke)
+    .then(() => {
+      req.flash('message', 'Pensamento criado com sucesso!')
       req.session.save(() => {
         res.redirect('/denkes/dashboard')
-      })  
-    } catch(err) {
-      console.log("OCORREU UM ERRO:" + err)
-    }
+      })
+    })
+    .catch((err) => console.log())
   }
 
   static async removeDenke(req, res) {
@@ -73,5 +102,31 @@ export default class DenkeController{
     } catch (err) {
       console.log("OCORREU UM ERRO:" + err)
     }
+  }
+
+  static async editDenke(req, res){
+    const id = req.params.id;
+    let denke = await Denke.findOne({where: {id: id}, raw: true})
+    console.log(denke)
+    res.render('denkes/edit', {denke});
+  }
+
+  static async editDenkeSave(req, res){
+
+    const id = req.body.id;
+
+    const denke = {
+      title: req.body.title
+    }
+
+    Denke.update(denke, {where: {id:id}})
+    .then(() => {
+      req.flash('message', 'Pensamento atualizado com sucesso!')
+      req.session.save(() => {
+        res.redirect('/denkes/dashboard')
+      })
+    })
+    .catch((err) => console.log())
+
   }
 }

@@ -212,6 +212,100 @@ input[type="submit"][disabled="true"],
   background-color: #222;
 }
 
+/* HOME */
+
+.home-header{
+  display: flex;
+  flex-direction: column;
+  max-width: 60%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.home-header h1 {
+  margin-bottom: 1em;
+}
+
+.home-header span {
+  color: #FF6982;
+}
+
+.home-header p,
+.home-header form {
+  margin-bottom: 1.2em;
+}
+
+.home-header input {
+  border: none;
+  border-bottom: 1px solid #fff;
+  padding: .5em;
+  margin-right: 1em;
+}
+
+.home-header input[type="text"] {
+  width: 60%;
+}
+
+.home-header input::placeholder {
+  color: #FFF;
+}
+
+.order-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 80%;
+  margin: 0 auto 1em;
+}
+
+.order-container span {
+  font-weight: bold;
+  color: #fff;
+}
+
+.order-container form {
+  margin: 0;
+}
+
+
+.order-container button {
+  margin-bottom: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.order-container button,
+.order-container i,
+.order-container a {
+  margin: 0 7px;
+}
+
+.order-container button:hover,
+.order-container i:hover,
+.order-container a:hover {
+  color: #FF6982;
+}
+
+.denkes-container figure {
+  padding: 12px;
+  background-color: #313131;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #222;
+  gap: 30px;
+}
+
+.denkes-container figcaption {
+  color: #afafaf;
+}
+
+.denkes-container .date {
+  color: #979797;
+  font-size: 0.8em;
+}
+
 /* FOOTER */
 
 footer {

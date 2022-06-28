@@ -1,0 +1,11 @@
+<div class="denke-form-container">
+  <a href="/denkes/dashboard">Voltar</a>
+  <h1>Editando um denke...</h1>
+  <form autocomplete="off" action="/denkes/edit" method="post">
+    <input type="hidden" name="id" value="{{denke.id}}">
+    <div class="form-control">
+      <input type="text" name="title" id="title" value="{{denke.title}}">
+    </div>
+  <input type="submit" value="Editar">
+  </form>
+</div>
