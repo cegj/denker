@@ -1,8 +1,13 @@
 import express from 'express';
-import DenkeController from "../controllers/DenkeController.mjs";
-
 // Controller
+import DenkeController from "../controllers/DenkeController.mjs";
+// Helpers
+import checkAuth from '../helpers/auth.mjs';
 
 export const denkesRoutes = express.Router();
 
+denkesRoutes.get('/add', checkAuth, DenkeController.createDenke);
+denkesRoutes.post('/add', checkAuth, DenkeController.createDenkeSave);
+denkesRoutes.get('/dashboard', checkAuth, DenkeController.dashboard);
+denkesRoutes.post('/remove', checkAuth, DenkeController.removeDenke);
 denkesRoutes.get('/', DenkeController.showDenkes);

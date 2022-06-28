@@ -1,0 +1,25 @@
+<div class="dashboard">
+  <div class="title-container">
+    <h2>Dashboard</h2>
+    <a href="/denkes/add" class="btn">Criar denke</a>
+  </div>
+  <h3>Seus denkes</h3>
+  <ul>
+    {{#each denkes}}
+      <li>
+        <span class="label">{{this.title}}</span>
+        <span class="actions">
+          <a href="/" class="btn">Editar</a>
+          <form method="post" action="/denkes/remove">
+          <input type="hidden" name="id" value="{{this.id}}">
+          <input type="submit" class="btn" value="Excluir">
+          </form>
+
+        </span>
+        </li>
+    {{/each}}
+    {{#if thereIsNoDenke}}
+      <span>Você não tem nenhum denke. Comece a compartilhar!</span>
+    {{/if}}
+  </ul>
+</div>
