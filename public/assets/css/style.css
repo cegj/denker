@@ -1,5 +1,6 @@
 @import url('./denkes-container.css');
 @import url('./profile-info.css');
+@import url('./reply-container.css');
 
 * {
   margin: 0;
@@ -283,6 +284,7 @@ input[type="submit"][disabled="true"],
   align-items: center;
   max-width: 700px;
   margin: 0 auto;
+  margin-bottom: 1em;
 }
 
 .title-container h2 {

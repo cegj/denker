@@ -1,0 +1,25 @@
+.reply-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.reply-container textarea {
+  width: 100%;
+  max-height: 80px;
+  font-family: "Libre Franklin" !important;
+  border: none;
+  padding: 10px;
+  box-sizing: border-box;
+  resize: none;
+  margin-bottom: 0.5em;
+}
+
+.reply-container textarea:focus{
+  outline: 0;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+}
+
+.reply-container input[type="submit"]{
+  display: block;
+  margin: 0 0 0 auto;
+}

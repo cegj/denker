@@ -12,5 +12,5 @@ denkesRoutes.get('/edit/:id', checkAuth, DenkeController.editDenke);
 denkesRoutes.post('/edit', checkAuth, DenkeController.editDenkeSave);
 denkesRoutes.get('/profile', checkAuth, DenkeController.profile);
 denkesRoutes.post('/remove', checkAuth, DenkeController.removeDenke);
-denkesRoutes.get('/:id', checkAuth, DenkeController.showDenke);
+denkesRoutes.get('/:id', DenkeController.showDenke);
 denkesRoutes.get('/', DenkeController.showDenkes);
