@@ -22,3 +22,7 @@
   align-self: center;
   list-style: none;
 }
+
+.profile-info li {
+  padding: 5px;
+}

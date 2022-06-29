@@ -3,6 +3,22 @@ import { User } from "../models/User.mjs";
 import { Op } from "sequelize";
 
 export default class DenkeController{
+
+  static async showDenke(req, res){
+    let id = req.params.id;
+    
+    const denkeData = await Denke.findOne({
+      include: User,
+      where: {id: id}
+    })
+
+    console.log(denkeData)
+
+    const denke = denkeData.get({plain: true})
+
+    res.render('denkes/denke', {denke})
+  }
+
   static async showDenkes(req, res){
 
     let search = '';
@@ -25,8 +41,6 @@ export default class DenkeController{
     });
 
     const denkes = denkesData.map((result) => result.get({plain: true}))
-
-    console.log(denkes)
 
     let thereIsNoDenke;
 

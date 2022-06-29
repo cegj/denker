@@ -1,0 +1,24 @@
+<div class="dashboard">
+  <div class="title-container">
+    <h2>Denke</h2>
+    <a href="/denkes/add" class="btn">Criar denke</a>
+  </div>
+  <section class="profile-info">
+    <img src="/assets/img/generic-avatar.png">
+    <ul>
+      <li>@{{denke.User.username}} ({{denke.User.name}})</li>
+      <li>{{denke.User.email}}</li>
+      <li>Entrou em {{denke.User.createdAt}}</li>
+    </ul>
+  </section>
+  <div class="denkes-container">
+    <figure>
+      <blockquote>{{denke.title}}</blockquote>
+      <div class="metainfo">
+        <span class="date">{{denke.updatedAt}}</span>
+      </div>
+    </figure>
+  </div>
+</div>
+
+<script src="/assets/js/formatDate.js"></script>
