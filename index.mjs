@@ -73,7 +73,7 @@ app.use((req, res, next) => {
 
 //Routers
 
-app.get('/', DenkeController.showDenkes);
+app.get('/', AuthController.login);
 app.use('/denkes', denkesRoutes);
 app.use('/', authRoutes);
 

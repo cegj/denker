@@ -34,7 +34,7 @@ export default class AuthController {
       req.flash('message', 'Login realizado com sucesso!');
 
       req.session.save(() => {
-        res.redirect('/');
+        res.redirect('/denkes');
       })
 
     } catch (err) {

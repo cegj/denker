@@ -34,10 +34,10 @@ export default class DenkeController{
       thereIsNoDenke = true;
     }
 
-    res.render('denkes/home', {denkes, thereIsNoDenke, search})
+    res.render('denkes/timeline', {denkes, thereIsNoDenke, search})
   }
 
-  static async dashboard(req, res){
+  static async profile(req, res){
     
     const userId = req.session.userid
 
@@ -59,7 +59,7 @@ export default class DenkeController{
       thereIsNoDenke = true;
     }
 
-    res.render('denkes/dashboard', {denkes, thereIsNoDenke})
+    res.render('denkes/profile', {denkes, thereIsNoDenke})
   }
 
   static createDenke(req, res){
@@ -79,7 +79,7 @@ export default class DenkeController{
     .then(() => {
       req.flash('message', 'Pensamento criado com sucesso!')
       req.session.save(() => {
-        res.redirect('/denkes/dashboard')
+        res.redirect('/denkes/profile')
       })
     })
     .catch((err) => console.log())
@@ -97,7 +97,7 @@ export default class DenkeController{
       req.flash('message', 'Denke removido!')
   
       req.session.save(() => {
-        res.redirect('/denkes/dashboard')
+        res.redirect('/denkes/profile')
       })
     } catch (err) {
       console.log("OCORREU UM ERRO:" + err)
@@ -123,7 +123,7 @@ export default class DenkeController{
     .then(() => {
       req.flash('message', 'Pensamento atualizado com sucesso!')
       req.session.save(() => {
-        res.redirect('/denkes/dashboard')
+        res.redirect('/denkes/profile')
       })
     })
     .catch((err) => console.log())

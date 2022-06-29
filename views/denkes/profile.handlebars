@@ -1,0 +1,31 @@
+<div class="dashboard">
+  <div class="title-container">
+    <h2>Perfil</h2>
+    <a href="/denkes/add" class="btn">Criar denke</a>
+  </div>
+  <section class="profile-info">
+    <img src="/assets/img/generic-avatar.png">
+    <ul>
+      <li>Nome do usuário</li>
+      <li>E-mail do usuário</li>
+      <li>Entrou em 00/00/0000</li>
+    </ul>
+  </section>
+  <div class="denkes-container">
+    {{#each denkes}}
+        <figure>
+          <blockquote class="label">{{this.title}}</blockquote>
+          <div class="actions">
+            <a href="/denkes/edit/{{this.id}}" class="btn">Editar</a>
+            <form method="post" action="/denkes/remove">
+              <input type="hidden" name="id" value="{{this.id}}">
+              <input type="submit" class="btn" value="Excluir">
+            </form>
+          </div>
+        </figure>
+    {{/each}}
+  </div>
+  {{#if thereIsNoDenke}}
+    <span>Você não tem nenhum denke. Comece a compartilhar!</span>
+  {{/if}}
+</div>
