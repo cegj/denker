@@ -15,6 +15,7 @@
   justify-content: space-between;
   border-bottom: 1px solid #dfdfdf;
   gap: 30px;
+  min-height: 40px;
 }
 
 .denkes-container blockquote {
@@ -34,7 +35,37 @@
   text-decoration: none;
 }
 
+.denkes-container div>a {
+  text-decoration: none;
+}
+
 .denkes-container figure:hover {
   background-color: #ebebeb;
 }
 
+.denkes-container div {
+  position: relative;
+}
+
+.denkes-container .actions {
+  display: flex;
+  gap: 15px;
+  justify-content: end;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
+.denkes-container .actions .btn {
+  color:  #868686;
+  font-weight: normal;
+  border: unset;
+  margin-bottom: unset;
+  padding: 5px;
+  font-size: 0.8em;
+}
+
+.denkes-container .actions .btn:hover {
+  color: rgb(82, 82, 82);
+  background-color: unset;
+}

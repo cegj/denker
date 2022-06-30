@@ -180,26 +180,6 @@ input[type="submit"][disabled="true"],
   text-align: right;
 }
 
-.dashboard h3 {
-  margin-bottom: 1.5em;
-}
-
-.dashboard .actions {
-  display: flex;
-  gap: 15px;
-}
-
-.dashboard .actions .btn {
-  border: 1px solid #868686;
-  color:  #868686;
-  font-weight: normal;
-  margin-bottom: 0;
-}
-
-.dashboard .actions .btn:hover {
-  background-color: #d3d3d3;
-}
-
 /* FOOTER */
 
 footer {
