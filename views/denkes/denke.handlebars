@@ -1,20 +1,20 @@
 <div class="title-container">
   <h2>Denke</h2>
-  <a href="/denkes" class="btn">Novo denke</a>
+  <a href="/denkes/profile" class="btn">Novo denke</a>
 </div>
 <section class="profile-info">
   <img src="/assets/img/generic-avatar.png">
   <ul>
     <li>@{{denke.User.username}} ({{denke.User.name}})</li>
     <li>{{denke.User.email}}</li>
-    <li>Entrou em {{denke.User.createdAt}}</li>
+    <li>Entrou em <span data-date>{{denke.User.createdAt}}</span></li>
   </ul>
 </section>
 <div class="denkes-container">
   <figure>
     <blockquote>{{denke.denkecontent}}</blockquote>
     <div class="metainfo">
-      <span class="date">{{denke.updatedAt}}</span>
+      <span data-date class="date">{{denke.updatedAt}}</span>
     </div>
   </figure>
 </div>
@@ -33,7 +33,7 @@
         <blockquote>{{this.replycontent}}</blockquote>
         <div class="metainfo">
           <figcaption>@{{this.User.username}}</figcaption>
-          <span class="date">{{this.updatedAt}}</span>
+          <span data-date class="date">{{this.updatedAt}}</span>
         </div>
       </figure>
     {{/each}}

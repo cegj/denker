@@ -1,11 +1,12 @@
+<div class="title-container">
+  <h2>Editar denke</h2>
+  <a href="/denkes/profile" class="btn">Voltar</a>
+</div>
 <div class="denke-form-container">
-  <a href="/denkes/dashboard">Voltar</a>
-  <h1>Editando um denke...</h1>
   <form autocomplete="off" action="/denkes/edit" method="post">
     <input type="hidden" name="id" value="{{denke.id}}">
-    <div class="form-control">
-      <input type="text" name="denkecontent" id="denkecontent" value="{{denke.denkecontent}}">
-    </div>
-  <input type="submit" value="Editar">
+    <textarea name="denkecontent" maxlength="250" id="denkecontent" placeholder="O que você quer compartilhar?">{{denke.denkecontent}}</textarea>
+    <input type="submit" value="Editar">
   </form>
 </div>
+<div class="denkes-container">

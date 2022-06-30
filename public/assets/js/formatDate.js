@@ -1,4 +1,4 @@
-const dates = document.querySelectorAll('.date')
+const dates = document.querySelectorAll('[data-date]')
 
 dates.forEach((date) => {
   const fullDate = new Date(date.innerText)

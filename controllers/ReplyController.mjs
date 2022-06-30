@@ -17,7 +17,7 @@ export default class ReplyController{
     Reply.create(reply)
     .then(() => {
       req.session.save(() => {
-        res.redirect(`/denkes/${req.body.denkeId}`)
+        res.redirect(req.headers.referer)
       })
     })
     .catch((err) => console.log())

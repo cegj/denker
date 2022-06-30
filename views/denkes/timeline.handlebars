@@ -2,7 +2,6 @@
   {{#if search}}
   <div class="title-container">
     <h2>Denkes com o termo "{{search}}"</h2>
-    <a href="/denkes" class="btn">Novo denke</a>
   </div>
   {{else}}
   <div class="title-container">
@@ -43,7 +42,7 @@
       <blockquote>{{this.denkecontent}}</blockquote>
       <div class="metainfo">
         <figcaption>@{{this.User.username}}</figcaption>
-        <span class="date">{{this.updatedAt}}</span>
+        <span data-date class="date">{{this.updatedAt}}</span>
       </div>
     </figure>
   </a>

@@ -59,17 +59,20 @@ export default class DenkeController{
     
     const userId = req.session.userid
 
-    const user = await User.findOne({
+    const userData = await User.findOne({
       where: {id:userId},
       include: Denke,
       plain: true
     })
 
-    if (!user){
+
+    if (!userData){
       res.redirect('/login')
     }
 
-    const denkes = user.Denkes.map((result) => result.dataValues)
+    const denkes = userData.Denkes.map((result) => result.dataValues)
+
+    const user = userData.dataValues;
 
     let thereIsNoDenke;
 
@@ -77,7 +80,7 @@ export default class DenkeController{
       thereIsNoDenke = true;
     }
 
-    res.render('denkes/profile', {denkes, thereIsNoDenke})
+    res.render('denkes/profile', {user, denkes, thereIsNoDenke})
   }
 
   static createDenke(req, res){
@@ -85,6 +88,8 @@ export default class DenkeController{
   }
 
   static async createDenkeSave(req, res){
+
+    console.log(req.headers.referer)
 
     const denke = {
       denkecontent: req.body.denkecontent,
@@ -94,7 +99,7 @@ export default class DenkeController{
     Denke.create(denke)
     .then(() => {
       req.session.save(() => {
-        res.redirect('/denkes')
+        res.redirect(req.headers.referer)
       })
     })
     .catch((err) => console.log())
@@ -121,7 +126,7 @@ export default class DenkeController{
 
   static async editDenke(req, res){
     const id = req.params.id;
-    let denke = await Denke.findOne({where: {id: id}, raw: true})
+    let denke = await Denke.findOne({where: {id: id}, raw: true})    
     res.render('denkes/edit', {denke});
   }
 
@@ -135,7 +140,7 @@ export default class DenkeController{
 
     Denke.update(denke, {where: {id:id}})
     .then(() => {
-      req.flash('message', 'Pensamento atualizado com sucesso!')
+      req.flash('message', 'Denke atualizado com sucesso!')
       req.session.save(() => {
         res.redirect('/denkes/profile')
       })
