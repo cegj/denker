@@ -1,10 +1,9 @@
-import { DataTypes } from "sequelize/types";
+import { DataTypes } from "sequelize";
 import { db } from "../db/conn.mjs";
-import { User } from "./User.mjs";
 import { Denke } from "./Denke.mjs";
 
 export const Reply = db.define('Reply', {
-  content: {
+  replycontent: {
     type: DataTypes.STRING,
     allowNull: false,
     require: true

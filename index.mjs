@@ -15,8 +15,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 //Import models
+import { Reply } from './models/Reply.mjs';
 import { Denke } from './models/Denke.mjs';
 import { User } from './models/User.mjs';
+
 
 //Import routes
 import { denkesRoutes } from './routes/denkeRoutes.mjs';
@@ -78,7 +80,7 @@ app.use('/denkes', denkesRoutes);
 app.use('/', authRoutes);
 
 db
-    .sync()
+    .sync({force: true})
     .then(() => {
         app.listen(3000)
         console.log(`Servidor em operação`);

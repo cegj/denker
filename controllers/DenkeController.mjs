@@ -87,13 +87,10 @@ export default class DenkeController{
       UserId: req.session.userid,
     }
 
-    console.log(denke)
-
     Denke.create(denke)
     .then(() => {
-      req.flash('message', 'Pensamento criado com sucesso!')
       req.session.save(() => {
-        res.redirect('/denkes/profile')
+        res.redirect('/denkes')
       })
     })
     .catch((err) => console.log())

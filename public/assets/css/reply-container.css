@@ -3,23 +3,24 @@
   margin: 0 auto;
 }
 
-.reply-container textarea {
-  width: 100%;
-  max-height: 80px;
+.reply-container form {
+  margin-bottom: 1em;
+}
+
+.reply-container figure {
   font-family: "Libre Franklin" !important;
-  border: none;
+  background-color: #dfdfdf;
   padding: 10px;
-  box-sizing: border-box;
-  resize: none;
+  margin-left: 15px;
+}
+
+.reply-container blockquote {
   margin-bottom: 0.5em;
+  color: #6a6a6a;
 }
 
-.reply-container textarea:focus{
-  outline: 0;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-}
-
-.reply-container input[type="submit"]{
-  display: block;
-  margin: 0 0 0 auto;
+.reply-container figcaption {
+  font-size: 0.8em;
+  font-style: italic;
+  color: #8c8c8c;
 }

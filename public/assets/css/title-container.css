@@ -1,0 +1,16 @@
+.title-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 700px;
+  margin-bottom: 1em;
+}
+
+.title-container h2 {
+  border-left: 4px solid #FF6982;
+  padding-left: 4px;
+}
+
+.title-container .btn {
+  margin-bottom: 0;
+}

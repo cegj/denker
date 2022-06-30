@@ -1,0 +1,36 @@
+.order-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.order-container form {
+  margin: 0;
+}
+
+.order-container a {
+  text-decoration: none;
+  color: #FF6982;
+}
+
+
+.order-container button {
+  margin-bottom: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: #FF6982;
+}
+
+.order-container button,
+.order-container i,
+.order-container a {
+  margin: 0 7px;
+}
+
+.order-container button:hover,
+.order-container i:hover,
+.order-container a:hover {
+  color: #000000;
+}
