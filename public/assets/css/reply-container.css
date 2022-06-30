@@ -7,16 +7,29 @@
   margin-bottom: 1em;
 }
 
+.replies {
+  margin-left: 30px;
+}
+
 .reply-container figure {
   font-family: "Libre Franklin" !important;
-  background-color: #dfdfdf;
-  padding: 10px;
-  margin-left: 15px;
+  padding: 10px 20px 30px;
+  background-color: #eaeaea;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #dfdfdf;
+  gap: 30px;
+}
+
+.reply-container .date{
+  color: #979797;
+  font-size: 0.8em;
 }
 
 .reply-container blockquote {
   margin-bottom: 0.5em;
-  color: #6a6a6a;
+  color: #4a4a4a;
 }
 
 .reply-container figcaption {

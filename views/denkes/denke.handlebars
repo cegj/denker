@@ -1,6 +1,6 @@
 <div class="title-container">
   <h2>Denke</h2>
-  <a href="/denkes" class="btn">Criar denke</a>
+  <a href="/denkes" class="btn">Publicar denke</a>
 </div>
 <section class="profile-info">
   <img src="/assets/img/generic-avatar.png">
@@ -12,7 +12,7 @@
 </section>
 <div class="denkes-container">
   <figure>
-    <blockquote>{{denke.title}}</blockquote>
+    <blockquote>{{denke.denkecontent}}</blockquote>
     <div class="metainfo">
       <span class="date">{{denke.updatedAt}}</span>
     </div>
@@ -22,16 +22,21 @@
   <h2>Comentários</h2>
 </div>
 <div class="reply-container">
-  <form method="post" action="/">
-    <input type="hidden" name="denkeId" value="{{denke.id}}"></input>
+  <form method="post" action="/reply/add">
+    <input type="hidden" name="denkeId" id="denkeId" value="{{denke.id}}"></input>
     <textarea name="replyContent" id="replyContent" cols="30" rows="10" maxlength="250" placeholder="Escreva o seu comentário aqui"></textarea>
     <input type="submit" class="btn" value="Comentar">
   </form>
   <div class="replies">
-    <figure>
-      <blockquote>Teste</blockquote>
-      <figcaption>teste</figcaption>
-    </figure>
+    {{#each replies}}
+      <figure>
+        <blockquote>{{this.replycontent}}</blockquote>
+        <div class="metainfo">
+          <figcaption>@{{this.User.username}}</figcaption>
+          <span class="date">{{this.updatedAt}}</span>
+        </div>
+      </figure>
+    {{/each}}
   </div>
 </div>
 

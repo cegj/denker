@@ -3,7 +3,7 @@ import { db } from "../db/conn.mjs";
 import { User } from "./User.mjs";
 
 export const Denke = db.define('Denke', {
-  title: {
+  denkecontent: {
     type: DataTypes.STRING,
     allowNull: false,
     require: true

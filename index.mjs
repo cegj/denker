@@ -27,6 +27,7 @@ import { authRoutes } from './routes/authRoutes.mjs';
 //Import controller
 import DenkeController from './controllers/DenkeController.mjs';
 import AuthController from './controllers/AuthController.mjs';
+import { replyRoutes } from './routes/ReplyRoutes.mjs';
 
 const app = express();
 
@@ -77,10 +78,11 @@ app.use((req, res, next) => {
 
 app.get('/', AuthController.login);
 app.use('/denkes', denkesRoutes);
+app.use('/reply', replyRoutes);
 app.use('/', authRoutes);
 
 db
-    .sync({force: true})
+    .sync()
     .then(() => {
         app.listen(3000)
         console.log(`Servidor em operação`);

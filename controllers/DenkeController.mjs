@@ -1,6 +1,7 @@
 import { Denke } from "../models/Denke.mjs";
 import { User } from "../models/User.mjs";
 import { Op } from "sequelize";
+import ReplyController from "./ReplyController.mjs";
 
 export default class DenkeController{
 
@@ -12,11 +13,14 @@ export default class DenkeController{
       where: {id: id}
     })
 
-    console.log(denkeData)
-
     const denke = denkeData.get({plain: true})
 
-    res.render('denkes/denke', {denke})
+    const replies = await ReplyController.prototype.getReplies(denke.id);
+
+    console.log(replies)
+
+    res.render('denkes/denke', {denke, replies})
+
   }
 
   static async showDenkes(req, res){
@@ -35,7 +39,7 @@ export default class DenkeController{
     const denkesData = await Denke.findAll({
       include: User,
       where: {
-        title: {[Op.like]: `%${search}%`}
+        denkecontent: {[Op.like]: `%${search}%`}
       },
       order: [['updatedAt', order]]
     });
@@ -83,7 +87,7 @@ export default class DenkeController{
   static async createDenkeSave(req, res){
 
     const denke = {
-      title: req.body.title,
+      denkecontent: req.body.denkecontent,
       UserId: req.session.userid,
     }
 
@@ -118,7 +122,6 @@ export default class DenkeController{
   static async editDenke(req, res){
     const id = req.params.id;
     let denke = await Denke.findOne({where: {id: id}, raw: true})
-    console.log(denke)
     res.render('denkes/edit', {denke});
   }
 
@@ -127,7 +130,7 @@ export default class DenkeController{
     const id = req.body.id;
 
     const denke = {
-      title: req.body.title
+      denkecontent: req.body.denkecontent
     }
 
     Denke.update(denke, {where: {id:id}})

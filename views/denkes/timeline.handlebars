@@ -2,12 +2,11 @@
   {{#if search}}
   <div class="title-container">
     <h2>Denkes com o termo "{{search}}"</h2>
-    <a href="/denkes" class="btn">Criar denke</a>
+    <a href="/denkes" class="btn">Publicar denke</a>
   </div>
   {{else}}
   <div class="title-container">
     <h2>Linha do tempo</h2>
-    <a href="/denkes/add" class="btn">Criar denke</a>
   </div>
   {{/if}}
   <div class="filter-options-container">
@@ -33,7 +32,7 @@
 </div>
 <div class="denke-form-container">
   <form autocomplete="off" action="/denkes/add" method="post">
-    <textarea name="title" maxlength="250" id="title" placeholder="O que você quer compartilhar?"></textarea>
+    <textarea name="denkecontent" maxlength="250" id="denkecontent" placeholder="O que você quer compartilhar?"></textarea>
     <input type="submit" value="Publicar!">
   </form>
 </div>
@@ -41,9 +40,9 @@
   {{#each denkes}}
   <a href="/denkes/{{this.id}}">
     <figure>
-      <blockquote>{{this.title}}</blockquote>
+      <blockquote>{{this.denkecontent}}</blockquote>
       <div class="metainfo">
-        <figcaption>{{this.User.name}}</figcaption>
+        <figcaption>@{{this.User.username}}</figcaption>
         <span class="date">{{this.updatedAt}}</span>
       </div>
     </figure>
