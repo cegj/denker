@@ -37,15 +37,26 @@
 </div>
 <div class="denkes-container">
   {{#each denkes}}
-  <a href="/denkes/{{this.id}}">
-    <figure>
-      <blockquote>{{this.denkecontent}}</blockquote>
-      <div class="metainfo">
-        <figcaption>@{{this.User.username}}</figcaption>
-        <span data-date class="date">{{this.updatedAt}}</span>
+  <div>
+    <a href="/denkes/{{this.id}}">
+      <figure>
+        <blockquote>{{this.denkecontent}}</blockquote>
+        <div class="metainfo">
+          <figcaption>@{{this.User.username}}</figcaption>
+          <span data-date class="date">{{this.updatedAt}}</span>
+        </div>
+      </figure>
+    </a>
+    {{#if this.fromCurrentUser}}
+      <div class="actions">
+        <a href="/denkes/edit/{{this.id}}" class="btn"><i class="bi bi-pencil-square"></i> Editar</a>
+        <form method="post" action="/denkes/remove">
+          <input type="hidden" name="id" value="{{this.id}}">
+          <button type="submit" class="btn" value="Excluir"><i class="bi bi-trash"></i> Excluir</button>
+        </form>
       </div>
-    </figure>
-  </a>
+    {{/if}}
+  </div>
   {{/each}}
   {{#if thereIsNoDenke}}
     <span>Ainda não há nenhum denke!</span>

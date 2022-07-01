@@ -52,6 +52,17 @@ export default class DenkeController{
       thereIsNoDenke = true;
     }
 
+
+    denkes.forEach((denke) => {
+      if (denke.User.id === req.session.userid){
+        denke.fromCurrentUser = true;
+      } else {
+        denke.fromCurrentUser = false;
+      }
+    })
+
+    console.log(denkes)
+
     res.render('denkes/timeline', {denkes, thereIsNoDenke, search})
   }
 
