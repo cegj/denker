@@ -33,8 +33,8 @@
   font-size: 0.8em;
 }
 
-.denkes-container>a {
-  text-decoration: none;
+.denkes-container>div>figure>a:hover {
+  color: #222 !important;
 }
 
 .denkes-container div>a {

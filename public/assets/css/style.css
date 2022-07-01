@@ -13,6 +13,14 @@
   bottom: 0;
 }
 
+a {
+  text-decoration: none !important;
+}
+
+a:hover {
+  color: #FF6982;
+}
+
 ul, li {
   margin: 0;
   padding: 0;
