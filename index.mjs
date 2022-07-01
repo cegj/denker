@@ -24,6 +24,7 @@ import { User } from './models/User.mjs';
 //Import routes
 import { denkesRoutes } from './routes/denkeRoutes.mjs';
 import { authRoutes } from './routes/authRoutes.mjs';
+import { userRoutes } from './routes/UserRoutes.mjs';
 
 //Import controller
 import DenkeController from './controllers/DenkeController.mjs';
@@ -79,6 +80,7 @@ app.use((req, res, next) => {
 
 app.get('/', AuthController.login);
 app.use('/denkes', denkesRoutes);
+app.use('/user', userRoutes);
 app.use('/reply', replyRoutes);
 app.use('/', authRoutes);
 

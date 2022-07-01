@@ -10,7 +10,6 @@ denkesRoutes.get('/add', checkAuth, DenkeController.createDenke);
 denkesRoutes.post('/add', checkAuth, DenkeController.createDenkeSave);
 denkesRoutes.get('/edit/:id', checkAuth, DenkeController.editDenke);
 denkesRoutes.post('/edit', checkAuth, DenkeController.editDenkeSave);
-denkesRoutes.get('/profile', checkAuth, DenkeController.profile);
 denkesRoutes.post('/remove', checkAuth, DenkeController.removeDenke);
 denkesRoutes.get('/:id', checkAuth, DenkeController.showDenke);
 denkesRoutes.get('/', checkAuth, DenkeController.showDenkes);
