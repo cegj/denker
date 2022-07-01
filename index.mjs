@@ -9,6 +9,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import os from 'os';
 const FileStore = pkg(session);
+import * as fs from 'fs';
 
 //Set __dirname
 const __filename = fileURLToPath(import.meta.url);

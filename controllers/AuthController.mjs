@@ -1,4 +1,4 @@
-import {User} from "../models/User.mjs";
+import { User } from "../models/User.mjs";
 import bcryptjs from "bcryptjs";
 
 export default class AuthController {

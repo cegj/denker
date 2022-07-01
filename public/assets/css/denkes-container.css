@@ -7,19 +7,21 @@
 }
 
 .denkes-container figure {
+  display: grid;
+  grid-template-columns: 450px auto;
   font-family: "Libre Franklin" !important;
-  padding: 10px 20px 30px;
   background-color: #f0f0f0;
-  display: flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #dfdfdf;
   gap: 30px;
   min-height: 40px;
+  padding: 15px;
 }
 
 .denkes-container blockquote {
   font-size: 1.1em;
+  padding-bottom: 15px;
 }
 
 .denkes-container figcaption {
@@ -53,7 +55,7 @@
   justify-content: end;
   position: absolute;
   bottom: 5px;
-  right: 5px;
+  right: 10px;
 }
 
 .denkes-container .actions .btn {
@@ -68,4 +70,8 @@
 .denkes-container .actions .btn:hover {
   color: rgb(82, 82, 82);
   background-color: unset;
+}
+
+.denkes-container .metainfo{
+  align-self: flex-start;
 }

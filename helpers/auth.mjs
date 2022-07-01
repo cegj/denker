@@ -1,9 +1,14 @@
-export default function checkAuth(req, res, next){
-  const userId = req.session.userid
+import { User } from "../models/User.mjs";
 
-  if (!userId){
-    res.redirect('/login')
-  } 
+export default async function checkAuth(req, res, next){
 
-  next();
+  const userId = req.session.userid;
+
+  if (userId){
+    next();
+  } else {
+    req.session.destroy();
+    res.redirect('/login');
+  }
+
 }
