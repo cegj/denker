@@ -16,7 +16,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 //Import models
-import { Reply } from './models/Reply.mjs';
 import { Denke } from './models/Denke.mjs';
 import { User } from './models/User.mjs';
 
@@ -29,7 +28,6 @@ import { userRoutes } from './routes/UserRoutes.mjs';
 //Import controller
 import DenkeController from './controllers/DenkeController.mjs';
 import AuthController from './controllers/AuthController.mjs';
-import { replyRoutes } from './routes/ReplyRoutes.mjs';
 
 const app = express();
 
@@ -81,7 +79,6 @@ app.use((req, res, next) => {
 app.get('/', AuthController.login);
 app.use('/denkes', denkesRoutes);
 app.use('/user', userRoutes);
-app.use('/reply', replyRoutes);
 app.use('/', authRoutes);
 
 db

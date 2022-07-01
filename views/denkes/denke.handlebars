@@ -11,31 +11,55 @@
   </ul>
 </section>
 <div class="denkes-container">
-  <figure>
-    <blockquote>{{denke.denkecontent}}</blockquote>
-    <div class="metainfo">
-      <span data-date class="date">{{denke.updatedAt}}</span>
+  <div>
+    <figure>
+      <blockquote>{{denke.denkecontent}}</blockquote>
+      <div class="metainfo">
+        <span data-date class="date">{{denke.updatedAt}}</span>
+      </div>
+    </figure>
+    {{#if denke.fromCurrentUser}}
+    <div class="actions">
+      <a href="/denkes/edit/{{denke.id}}" class="btn"><i class="bi bi-pencil-square"></i> Editar</a>
+      <form method="post" action="/denkes/remove">
+        <input type="hidden" name="id" value="{{denke.id}}">
+        <button type="submit" class="btn" value="Excluir"><i class="bi bi-trash"></i> Excluir</button>
+      </form>
     </div>
-  </figure>
+  </div>
+{{/if}}
 </div>
 <div class="title-container">
-  <h2>Comentários</h2>
+  <h2>Respostas</h2>
 </div>
 <div class="reply-container">
-  <form method="post" action="/reply/add">
-    <input type="hidden" name="denkeId" id="denkeId" value="{{denke.id}}"></input>
-    <textarea name="replyContent" id="replyContent" cols="30" rows="10" maxlength="250" placeholder="Escreva o seu comentário aqui"></textarea>
+  <form method="post" action="/denkes/add">
+    <input type="hidden" name="replyTo" id="replyTo" value="{{denke.id}}"></input>
+    <textarea name="denkecontent" id="denkecontent" cols="30" rows="10" maxlength="250" placeholder="Escreva o seu comentário aqui"></textarea>
     <input type="submit" class="btn" value="Comentar">
   </form>
-  <div class="replies">
-    {{#each replies}}
-      <figure>
-        <blockquote>{{this.replycontent}}</blockquote>
-        <div class="metainfo">
-          <figcaption><a href="/user/{{this.User.id}}">@{{this.User.username}}</a></figcaption>
-          <span data-date class="date">{{this.updatedAt}}</span>
-        </div>
-      </figure>
+  <div class="denkes-container">
+    {{#each denke.Denkes}}
+      <div>
+        <a href="/denkes/{{this.id}}">
+          <figure>
+            <blockquote>{{this.denkecontent}}</blockquote>
+            <div class="metainfo">
+              <figcaption><a href="/user/{{this.User.id}}">@{{this.User.username}}</a></figcaption>
+              <span data-date class="date">{{this.updatedAt}}</span>
+            </div>
+          </figure>
+        </a>
+        {{#if this.fromCurrentUser}}
+          <div class="actions">
+            <a href="/denkes/edit/{{this.id}}" class="btn"><i class="bi bi-pencil-square"></i> Editar</a>
+            <form method="post" action="/denkes/remove">
+              <input type="hidden" name="id" value="{{this.id}}">
+              <button type="submit" class="btn" value="Excluir"><i class="bi bi-trash"></i> Excluir</button>
+            </form>
+          </div>
+        {{/if}}
+      </div>
     {{/each}}
   </div>
 </div>

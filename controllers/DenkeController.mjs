@@ -1,7 +1,6 @@
 import { Denke } from "../models/Denke.mjs";
 import { User } from "../models/User.mjs";
 import { Op } from "sequelize";
-import ReplyController from "./ReplyController.mjs";
 
 export default class DenkeController{
 
@@ -9,17 +8,36 @@ export default class DenkeController{
     let id = req.params.id;
     
     const denkeData = await Denke.findOne({
-      include: User,
+      include: {all: true, nested: true},
       where: {id: id}
     })
 
     const denke = denkeData.get({plain: true})
 
-    const replies = await ReplyController.prototype.getReplies(denke.id);
+    //Get user of reply
+    denke.Denkes.forEach(async(reply) => {
+      let replyUser = await User.findOne({
+        where: {id: reply.UserId}
+      })
+      
+      replyUser = replyUser.get({plain: true})
+      reply.User = replyUser;
 
-    console.log(replies)
+      if (reply.User.id === req.session.userid){
+        reply.fromCurrentUser = true;
+      } else {
+        reply.fromCurrentUser = false;
+      }
+    })
 
-    res.render('denkes/denke', {denke, replies})
+    //Check if denke is from current user
+    if (denke.User.id === req.session.userid){
+      denke.fromCurrentUser = true;
+    } else {
+      denke.fromCurrentUser = false;
+    }
+
+    res.render('denkes/denke', {denke})
 
   }
 
@@ -61,8 +79,6 @@ export default class DenkeController{
       }
     })
 
-    console.log(denkes)
-
     res.render('denkes/timeline', {denkes, thereIsNoDenke, search})
   }
 
@@ -72,11 +88,14 @@ export default class DenkeController{
 
   static async createDenkeSave(req, res){
 
+    const replyTo = +req.body.replyTo || "";
+
     console.log(req.headers.referer)
 
     const denke = {
       denkecontent: req.body.denkecontent,
       UserId: req.session.userid,
+      DenkeId: replyTo
     }
 
     Denke.create(denke)
@@ -125,7 +144,7 @@ export default class DenkeController{
     .then(() => {
       req.flash('message', 'Denke atualizado com sucesso!')
       req.session.save(() => {
-        res.redirect('/denkes/profile')
+        res.redirect(`/denkes/${id}`)
       })
     })
     .catch((err) => console.log())
