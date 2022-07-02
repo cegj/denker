@@ -12,4 +12,4 @@ export const Denke = db.define('Denke', {
 
 Denke.belongsTo(User);
 User.hasMany(Denke);
-Denke.hasMany(Denke)
+Denke.hasMany(Denke);

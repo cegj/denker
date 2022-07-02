@@ -6,7 +6,6 @@ import checkAuth from '../helpers/auth.mjs';
 
 export const denkesRoutes = express.Router();
 
-denkesRoutes.get('/add', checkAuth, DenkeController.createDenke);
 denkesRoutes.post('/add', checkAuth, DenkeController.createDenkeSave);
 denkesRoutes.get('/edit/:id', checkAuth, DenkeController.editDenke);
 denkesRoutes.post('/edit', checkAuth, DenkeController.editDenkeSave);

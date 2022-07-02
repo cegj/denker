@@ -82,13 +82,9 @@ export default class DenkeController{
     res.render('denkes/timeline', {denkes, thereIsNoDenke, search})
   }
 
-  static createDenke(req, res){
-    res.render('denkes/add')
-  }
-
   static async createDenkeSave(req, res){
 
-    const replyTo = +req.body.replyTo || "";
+    const replyTo = +req.body.replyTo || null;
 
     console.log(req.headers.referer)
 
@@ -97,6 +93,8 @@ export default class DenkeController{
       UserId: req.session.userid,
       DenkeId: replyTo
     }
+
+    console.log(denke)
 
     Denke.create(denke)
     .then(() => {
