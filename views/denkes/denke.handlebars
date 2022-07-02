@@ -3,7 +3,7 @@
   <a href="/denkes/profile" class="btn">Novo denke</a>
 </div>
 <section class="profile-info">
-  <img src="/assets/img/generic-avatar.png">
+  <img alt="{{denke.User.name}}" class="avatar-photo" src="https://www.gravatar.com/avatar/{{denke.User.hashedEmail}}?s=100">
   <ul>
     <li><a href="/user/{{denke.User.id}}">@{{denke.User.username}}</a> ({{denke.User.name}})</li>
     <li>{{denke.User.email}}</li>

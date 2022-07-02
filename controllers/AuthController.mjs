@@ -1,5 +1,6 @@
 import { User } from "../models/User.mjs";
 import bcryptjs from "bcryptjs";
+import md5 from "md5";
 
 export default class AuthController {
 
@@ -51,6 +52,8 @@ export default class AuthController {
 
     const { name, username, email, password, confirmpassword } = req.body
 
+    const hashedEmail = md5(email.toLowerCase().trim());
+
     //Password match validation
     if (password != confirmpassword){
       req.flash('message', 'As senhas não conferem, tente novamente!');
@@ -84,6 +87,7 @@ export default class AuthController {
       name,
       username,
       email,
+      hashedEmail,
       password: hashedPassword
     }
 

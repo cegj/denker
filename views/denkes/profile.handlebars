@@ -3,7 +3,7 @@
     <h2>Perfil</h2>
   </div>
   <section class="profile-info">
-    <img src="/assets/img/generic-avatar.png">
+    <img alt="{{user.name}}" class="avatar-photo" src="https://www.gravatar.com/avatar/{{user.hashedEmail}}?s=100">
     <ul>
       <li>@{{user.username}} ({{user.name}})</li>
       <li>{{user.email}}</li>
