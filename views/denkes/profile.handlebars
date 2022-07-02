@@ -10,6 +10,26 @@
       <li>Entrou em <span data-date>{{user.createdAt}}</span></li>
     </ul>
   </section>
+    <div class="filter-options-container">
+    <form class="search-form" action="/user" method="get">
+      <input type="text" name="search" id="search" placeholder="Digite aqui para buscar">
+      <button type="submit" class="btn"><i class="bi bi-search"></i></button>
+    </form>
+    <div class="order-container">
+      <span>Ordenar por:</span>
+      <form action="/user" method="get">
+        <input type="hidden" name="search" value="{{this.search}}">
+        <input type="hidden" name="order" value="new">
+        <button type="submit" class="bi bi-arrow-up"></button>
+      </form>
+      <form action="/user" method="get">
+        <input type="hidden" name="search" value="{{this.search}}">
+        <input type="hidden" name="order" value="old">
+        <button type="submit" class="bi bi-arrow-down"></button>
+      </form>
+      <a href="/user">Limpar</a>
+    </div>
+  </div>
   <div class="denke-form-container">
     <form autocomplete="off" action="/denkes/add" method="post">
       <textarea name="denkecontent" maxlength="250" id="denkecontent" placeholder="O que você quer compartilhar?"></textarea>
@@ -18,27 +38,35 @@
   </div>
   <div class="denkes-container">
     {{#each denkes}}
-    <div>
-      <a href="/denkes/{{this.id}}">
-        <figure>
-          <blockquote>{{this.denkecontent}}</blockquote>
-          <div class="metainfo">
-            <span data-date class="date">{{this.updatedAt}}</span>
-          </div>
-        </figure>
-      </a>
-      <div class="actions">
-        <a href="/denkes/edit/{{this.id}}" class="btn"><i class="bi bi-pencil-square"></i> Editar</a>
-        <form method="post" action="/denkes/remove">
-          <input type="hidden" name="id" value="{{this.id}}">
-          <button type="submit" class="btn" value="Excluir"><i class="bi bi-trash"></i> Excluir</button>
-        </form>
-      </div>
-    </div>
+        <div>
+            <figure>
+              {{#if this.isReply}}
+              <a class="in-response-link" href="/denkes/{{this.DenkeId}}"><i class="bi bi-arrow-90deg-left"></i> Em resposta</a>
+              {{/if}}
+              <blockquote><a href="/denkes/{{this.id}}">{{this.denkecontent}}</a></blockquote>
+              <div class="metainfo">
+                <figcaption><a href="/user/{{this.User.id}}">@{{this.User.username}}</a></figcaption>
+                <span data-date class="date">{{this.updatedAt}}</span>
+                {{#if this.thereIsReplies}}
+                <span><a href="/denkes/{{this.id}}">{{this.Denkes.length}} resposta(s)</a></span>
+                {{/if}}
+              </div>
+            </figure>
+          </a>
+          {{#if this.fromCurrentUser}}
+            <div class="actions">
+              <a href="/denkes/edit/{{this.id}}" class="btn"><i class="bi bi-pencil-square"></i> Editar</a>
+              <form method="post" action="/denkes/remove">
+                <input type="hidden" name="id" value="{{this.id}}">
+                <button type="submit" class="btn" value="Excluir"><i class="bi bi-trash"></i> Excluir</button>
+              </form>
+            </div>
+          {{/if}}
+        </div>
     {{/each}}
-  </div>
   {{#if thereIsNoDenke}}
-    <span>Você não tem nenhum denke. Comece a compartilhar!</span>
+    <span>Ainda não há nenhum denke!</span>
   {{/if}}
 </div>
+
 <script src="/assets/js/formatDate.js"></script>

@@ -9,7 +9,7 @@
   </div>
   {{/if}}
   <div class="filter-options-container">
-    <form action="/denkes" method="get">
+    <form class="search-form" action="/denkes" method="get">
       <input type="text" name="search" id="search" placeholder="Digite aqui para buscar">
       <button type="submit" class="btn"><i class="bi bi-search"></i></button>
     </form>
@@ -36,28 +36,32 @@
   </form>
 </div>
 <div class="denkes-container">
-  {{#each denkes}}
-  <div>
-    <a href="/denkes/{{this.id}}">
-      <figure>
-        <blockquote>{{this.denkecontent}}</blockquote>
-        <div class="metainfo">
-          <figcaption><a href="/user/{{this.User.id}}">@{{this.User.username}}</a></figcaption>
-          <span data-date class="date">{{this.updatedAt}}</span>
+    {{#each denkes}}
+      {{#unless this.isReply}}
+        <div>
+            <figure>
+              <blockquote><a href="/denkes/{{this.id}}">{{this.denkecontent}}</a></blockquote>
+              <div class="metainfo">
+                <figcaption><a href="/user/{{this.User.id}}">@{{this.User.username}}</a></figcaption>
+                <span data-date class="date">{{this.updatedAt}}</span>
+                {{#if this.thereIsReplies}}
+                <span><a href="/denkes/{{this.id}}">{{this.Denkes.length}} resposta(s)</a></span>
+                {{/if}}
+              </div>
+            </figure>
+          </a>
+          {{#if this.fromCurrentUser}}
+            <div class="actions">
+              <a href="/denkes/edit/{{this.id}}" class="btn"><i class="bi bi-pencil-square"></i> Editar</a>
+              <form method="post" action="/denkes/remove">
+                <input type="hidden" name="id" value="{{this.id}}">
+                <button type="submit" class="btn" value="Excluir"><i class="bi bi-trash"></i> Excluir</button>
+              </form>
+            </div>
+          {{/if}}
         </div>
-      </figure>
-    </a>
-    {{#if this.fromCurrentUser}}
-      <div class="actions">
-        <a href="/denkes/edit/{{this.id}}" class="btn"><i class="bi bi-pencil-square"></i> Editar</a>
-        <form method="post" action="/denkes/remove">
-          <input type="hidden" name="id" value="{{this.id}}">
-          <button type="submit" class="btn" value="Excluir"><i class="bi bi-trash"></i> Excluir</button>
-        </form>
-      </div>
-    {{/if}}
-  </div>
-  {{/each}}
+      {{/unless}}
+    {{/each}}
   {{#if thereIsNoDenke}}
     <span>Ainda não há nenhum denke!</span>
   {{/if}}

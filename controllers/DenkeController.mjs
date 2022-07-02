@@ -14,7 +14,13 @@ export default class DenkeController{
 
     const denke = denkeData.get({plain: true})
 
-    //Get user of reply
+    //Check if there is replies for denke
+    if(denke.Denkes.length){
+      denke.thereIsReplies = true;
+    };
+
+
+    //Get users of replies
     denke.Denkes.forEach(async(reply) => {
       let replyUser = await User.findOne({
         where: {id: reply.UserId}
@@ -30,6 +36,52 @@ export default class DenkeController{
       }
     })
 
+    //Get replies of replies
+    // denke.Denkes.forEach(async(reply) => {
+      // let replyReplies = await Denke.findAll({
+        // include: Denke,
+        // where: {id: reply.DenkeId},
+        // raw: true,
+        // plain: true
+      // })
+      // 
+      // reply.Denkes = replyReplies;
+// 
+      // if (reply.Denkes.length){
+        // reply.thereIsReplies = true;
+      // }
+    // })
+
+    denke.Denkes.forEach(async(reply) => {
+      if (reply.DenkeId){
+        reply.isReply = true;
+        const repliesDenke = await Denke.findAll({
+          include: Denke,
+          where: {DenkeId: reply.id},
+        })
+
+        reply.Denkes = repliesDenke;
+
+        if(reply.Denkes.length){
+          reply.thereIsReplies = true;
+        }
+      }
+    })
+
+    //Check if denke is a reply to another one
+    if (denke.DenkeId){
+      denke.isReply = true;
+      const repliedDenke = await Denke.findOne({
+        include: [User, Denke],
+        where: {id: denke.DenkeId},
+      })
+
+      denke.repliedDenke = repliedDenke.get({plain: true})  
+    } else {
+      denke.isReply = false;
+    }
+
+
     //Check if denke is from current user
     if (denke.User.id === req.session.userid){
       denke.fromCurrentUser = true;
@@ -37,11 +89,27 @@ export default class DenkeController{
       denke.fromCurrentUser = false;
     }
 
+    //Check if denke is a reply to another one
+    if (denke.DenkeId){
+      denke.isReply = true;
+      const repliedDenke = await Denke.findOne({
+        include: [User, Denke],
+        where: {id: denke.DenkeId},
+      })
+      denke.repliedDenke = repliedDenke.get({plain: true})  
+    } else {
+      denke.isReply = false;
+    }
+    
     res.render('denkes/denke', {denke})
 
   }
 
   static async showDenkes(req, res){
+
+    if(!req.session.userid){
+      res.redirect('/login')
+    }
 
     let search = '';
     if (req.query.search){
@@ -55,22 +123,21 @@ export default class DenkeController{
     }
 
     const denkesData = await Denke.findAll({
-      include: User,
+      include: {all: true, nested: true},
       where: {
         denkecontent: {[Op.like]: `%${search}%`}
       },
       order: [['updatedAt', order]]
     });
 
-    const denkes = denkesData.map((result) => result.get({plain: true}))
+    let denkes = denkesData.map((result) => result.get({plain: true}))
 
     let thereIsNoDenke;
-
     if (denkes.length === 0){
       thereIsNoDenke = true;
     }
 
-
+    // Check if denke is of current user
     denkes.forEach((denke) => {
       if (denke.User.id === req.session.userid){
         denke.fromCurrentUser = true;
@@ -79,6 +146,23 @@ export default class DenkeController{
       }
     })
 
+    //Check if denke is a reply to another one
+    denkes.forEach(async(denke) => {
+      if (denke.DenkeId){
+        denke.isReply = true;
+      } else {
+        denke.isReply = false;
+      }  
+    })
+
+    denkes.forEach((denke) => {
+      if(denke.Denkes.length){
+        denke.thereIsReplies = true;
+      };
+    })
+
+    console.log(denkes)
+
     res.render('denkes/timeline', {denkes, thereIsNoDenke, search})
   }
 
@@ -86,15 +170,11 @@ export default class DenkeController{
 
     const replyTo = +req.body.replyTo || null;
 
-    console.log(req.headers.referer)
-
     const denke = {
       denkecontent: req.body.denkecontent,
       UserId: req.session.userid,
       DenkeId: replyTo
     }
-
-    console.log(denke)
 
     Denke.create(denke)
     .then(() => {
@@ -125,9 +205,15 @@ export default class DenkeController{
   }
 
   static async editDenke(req, res){
-    const id = req.params.id;
-    let denke = await Denke.findOne({where: {id: id}, raw: true})    
-    res.render('denkes/edit', {denke});
+    const userId = req.session.userid;
+    const denkeId = req.params.id;
+    let denke = await Denke.findOne({where: {id: denkeId}, raw: true})
+    
+    if(denke.UserId === userId){
+      res.render('denkes/edit', {denke});
+    } else {
+      res.redirect('/')
+    }
   }
 
   static async editDenkeSave(req, res){

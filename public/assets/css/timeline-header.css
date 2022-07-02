@@ -8,13 +8,15 @@
   color: #858585;
 }
 
-.timeline-header input {
+.search-form input {
   border: none;
-  border-bottom: 1px solid #fff;
+  border: 1px solid rgb(214, 214, 214);
+  border-radius: 3px;
   padding: .5em;
 }
 
-.timeline-header input:focus {
+.search-form input:focus {
   border-bottom: 1px solid rgb(204, 204, 204);
-  outline: unset;
+  outline: auto;
+  outline: 2px solid #FF6982;
 }

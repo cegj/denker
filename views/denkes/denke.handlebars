@@ -10,12 +10,38 @@
     <li>Entrou em <span data-date>{{denke.User.createdAt}}</span></li>
   </ul>
 </section>
+{{!-- REPLIED DENKE (IF THERE IS ONE) --}}
 <div class="denkes-container">
-  <div>
+    {{#if denke.isReply}}
+    <div class="replied-denke">
+      <figure>
+        <blockquote><a href="/denkes/{{denke.repliedDenke.id}}">{{denke.repliedDenke.denkecontent}}</a></blockquote>
+        <div class="metainfo">
+          <figcaption><a href="/user/{{denke.repliedDenke.User.id}}">@{{denke.repliedDenke.User.username}}</a></figcaption>
+          <span data-date class="date">{{denke.repliedDenke.updatedAt}}</span>
+          <span><a href="/denkes/{{denke.repliedDenke.id}}">{{denke.repliedDenke.Denkes.length}} resposta(s)</a></span>
+        </div>
+      </figure>
+    {{#if denke.repliedDenke.fromCurrentUser}}
+    <div class="actions">
+      <a href="/denkes/edit/{{denke.repliedDenke.id}}" class="btn"><i class="bi bi-pencil-square"></i> Editar</a>
+      <form method="post" action="/denkes/remove">
+        <input type="hidden" name="id" value="{{denke.repliedDenke.id}}">
+        <button type="submit" class="btn" value="Excluir"><i class="bi bi-trash"></i> Excluir</button>
+      </form>
+    </div>
+    {{/if}}
+  </div>
+  {{/if}}
+  {{!-- CURRENT DENKE --}}
+  <div class="current-denke">
     <figure>
       <blockquote>{{denke.denkecontent}}</blockquote>
       <div class="metainfo">
         <span data-date class="date">{{denke.updatedAt}}</span>
+        {{#if denke.thereIsReplies}}
+        <span>{{denke.Denkes.length}} resposta(s)</span>
+        {{/if}}
       </div>
     </figure>
     {{#if denke.fromCurrentUser}}
@@ -26,11 +52,35 @@
         <button type="submit" class="btn" value="Excluir"><i class="bi bi-trash"></i> Excluir</button>
       </form>
     </div>
+    {{/if}}
   </div>
-{{/if}}
+  {{!-- REPLIES DENKES --}}
+  {{#each denke.Denkes}}
+    <div class="reply-denke">
+      <figure>
+        <blockquote><a href="/denkes/{{this.id}}">{{this.denkecontent}}</a></blockquote>
+        <div class="metainfo">
+          <figcaption><a href="/user/{{this.User.id}}">@{{this.User.username}}</a></figcaption>
+          <span data-date class="date">{{this.updatedAt}}</span>
+          {{#if this.thereIsReplies}}
+          <span><a href="/denkes/{{this.id}}">{{this.Denkes.length}} resposta(s)</a></span>
+          {{/if}}
+        </div>
+      </figure>
+      {{#if this.fromCurrentUser}}
+      <div class="actions">
+        <a href="/denkes/edit/{{this.id}}" class="btn"><i class="bi bi-pencil-square"></i> Editar</a>
+        <form method="post" action="/denkes/remove">
+          <input type="hidden" name="id" value="{{this.id}}">
+          <button type="submit" class="btn" value="Excluir"><i class="bi bi-trash"></i> Excluir</button>
+        </form>
+      </div>
+      {{/if}}
+    </div>
+  {{/each}}
 </div>
 <div class="title-container">
-  <h2>Respostas</h2>
+  <h2>Publicar uma resposta</h2>
 </div>
 <div class="reply-container">
   <form method="post" action="/denkes/add">
@@ -38,30 +88,6 @@
     <textarea name="denkecontent" id="denkecontent" cols="30" rows="10" maxlength="250" placeholder="Escreva o seu comentário aqui"></textarea>
     <input type="submit" class="btn" value="Comentar">
   </form>
-  <div class="denkes-container">
-    {{#each denke.Denkes}}
-      <div>
-        <a href="/denkes/{{this.id}}">
-          <figure>
-            <blockquote>{{this.denkecontent}}</blockquote>
-            <div class="metainfo">
-              <figcaption><a href="/user/{{this.User.id}}">@{{this.User.username}}</a></figcaption>
-              <span data-date class="date">{{this.updatedAt}}</span>
-            </div>
-          </figure>
-        </a>
-        {{#if this.fromCurrentUser}}
-          <div class="actions">
-            <a href="/denkes/edit/{{this.id}}" class="btn"><i class="bi bi-pencil-square"></i> Editar</a>
-            <form method="post" action="/denkes/remove">
-              <input type="hidden" name="id" value="{{this.id}}">
-              <button type="submit" class="btn" value="Excluir"><i class="bi bi-trash"></i> Excluir</button>
-            </form>
-          </div>
-        {{/if}}
-      </div>
-    {{/each}}
-  </div>
 </div>
 
 <script src="/assets/js/formatDate.js"></script>

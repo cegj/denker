@@ -18,7 +18,7 @@ a {
 }
 
 a:hover {
-  color: #FF6982;
+  color: #FF6982 !important;
 }
 
 ul, li {

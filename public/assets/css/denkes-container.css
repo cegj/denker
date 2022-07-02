@@ -7,21 +7,15 @@
 }
 
 .denkes-container figure {
-  display: grid;
-  grid-template-columns: 450px auto;
   font-family: "Libre Franklin" !important;
   background-color: #f0f0f0;
-  align-items: center;
-  justify-content: space-between;
   border-bottom: 1px solid #dfdfdf;
-  gap: 30px;
-  min-height: 40px;
   padding: 15px;
 }
 
 .denkes-container blockquote {
   font-size: 1.1em;
-  padding-bottom: 50px;
+  margin-bottom: 1em;
 }
 
 .denkes-container figcaption {
@@ -30,7 +24,6 @@
 
 .denkes-container .date {
   color: #979797;
-  font-size: 0.8em;
 }
 
 .denkes-container>div>figure>a:hover {
@@ -53,8 +46,9 @@
   display: flex;
   justify-content: end;
   position: absolute;
-  bottom: 5px;
+  bottom: 15px;
   right: 10px;
+  height: 20px;
 }
 
 .denkes-container .actions .btn {
@@ -72,5 +66,41 @@
 }
 
 .denkes-container .metainfo{
-  align-self: flex-start;
+  display: flex;
+  gap: 15px;
+  font-size: 0.8em;
+}
+
+.replies {
+  margin-left: 30px;
+}
+
+.denkes-container .reply-container .date{
+  color: #979797;
+}
+
+.denkes-container .replied-denke figure{
+  margin-right: 15%;
+}
+
+.denkes-container .reply-denke figure{
+  margin-left: 15%;
+}
+
+.denkes-container .replied-denke figure,
+.denkes-container .reply-denke figure {
+  font-size: 0.8em;
+  background-color: #d5d5d5;
+}
+
+.denkes-container .replied-denke blockquote a,
+.denkes-container .reply-denke blockquote a{
+  color: #3a3a3a;
+}
+
+.denkes-container .in-response-link{
+  display: block;
+  font-size: 0.8em;
+  padding-bottom: 0.5em;
+  color: rgb(134, 134, 134);
 }
