@@ -5,12 +5,17 @@ import { Op } from "sequelize";
 export default class UserController{
   static async showProfile(req, res){
     
-    const userId = req.params.id ? req.params.id : req.session.userid;
+    const userId = req.params.id || req.session.userid;
 
     const userData = await User.findOne({
       where: {id: userId},
       plain: true
     })
+
+    if (!userData){
+      res.redirect('/');
+      return
+    }
 
     const user = userData.dataValues;
 

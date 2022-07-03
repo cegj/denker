@@ -9,6 +9,13 @@
       <li>{{user.email}}</li>
       <li>Entrou em <span data-date>{{user.createdAt}}</span></li>
     </ul>
+    <div>
+      <div><i class="bi bi-person-fill"></i> 1 seguindo</div>
+      <div><i class="bi bi-person-fill"></i> 2 seguidores</div>
+      <form action="/user/{{user.id}}/follow" method="post">
+        <button style="color: #ff3e5f" type="submit"><i class="bi bi-plus-circle-fill"></i> <b>Seguir</b></button>
+      </form>
+    </div>
   </section>
     <div class="filter-options-container">
     <form class="search-form" action="/user" method="get">

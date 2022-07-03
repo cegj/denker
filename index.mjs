@@ -18,6 +18,7 @@ const __dirname = path.dirname(__filename);
 //Import models
 import { Denke } from './models/Denke.mjs';
 import { User } from './models/User.mjs';
+import { Follow } from './models/Follow.mjs';
 
 
 //Import routes
@@ -28,6 +29,7 @@ import { userRoutes } from './routes/UserRoutes.mjs';
 //Import controller
 import DenkeController from './controllers/DenkeController.mjs';
 import AuthController from './controllers/AuthController.mjs';
+import FollowController from './controllers/FollowController.mjs';
 
 const app = express();
 

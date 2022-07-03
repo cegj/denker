@@ -10,6 +10,10 @@ export default class AuthController {
 
   static async loginPost(req, res) {
 
+    if(req.session.userid){
+      req.session.destroy();
+    }
+
     const {email, password} = req.body;
 
     //Find user
