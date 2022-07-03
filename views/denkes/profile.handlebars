@@ -10,8 +10,8 @@
       <li>Entrou em <span data-date>{{user.createdAt}}</span></li>
     </ul>
     <div>
-      <div><i class="bi bi-person-fill"></i> 1 seguindo</div>
-      <div><i class="bi bi-person-fill"></i> 2 seguidores</div>
+      <div><a href="/user/{{user.id}}/following"><i class="bi bi-person-fill"></i> {{user.follows.following.length}} seguindo</a></div>
+      <div><a href="/user/{{user.id}}/followers"><i class="bi bi-person-fill"></i> {{user.follows.followers.length}} seguidores</a></div>
       <form action="/user/{{user.id}}/follow" method="post">
         <button style="color: #ff3e5f" type="submit"><i class="bi bi-plus-circle-fill"></i> <b>Seguir</b></button>
       </form>

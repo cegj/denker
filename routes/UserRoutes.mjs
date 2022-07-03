@@ -10,3 +10,5 @@ export const userRoutes = express.Router();
 userRoutes.get('/', checkAuth, UserController.showProfile);
 userRoutes.get('/:id', checkAuth, UserController.showProfile);
 userRoutes.post('/:userToFollow/follow', checkAuth, FollowController.followUnfollow);
+userRoutes.get('/:id/following', checkAuth, FollowController.showFollowing);
+userRoutes.get('/:id/followers', checkAuth, FollowController.showFollowers);

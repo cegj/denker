@@ -36,22 +36,6 @@ export default class DenkeController{
       }
     })
 
-    //Get replies of replies
-    // denke.Denkes.forEach(async(reply) => {
-      // let replyReplies = await Denke.findAll({
-        // include: Denke,
-        // where: {id: reply.DenkeId},
-        // raw: true,
-        // plain: true
-      // })
-      // 
-      // reply.Denkes = replyReplies;
-// 
-      // if (reply.Denkes.length){
-        // reply.thereIsReplies = true;
-      // }
-    // })
-
     denke.Denkes.forEach(async(reply) => {
       if (reply.DenkeId){
         reply.isReply = true;

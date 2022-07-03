@@ -19,6 +19,7 @@
 }
 
 .profile-info ul {
+  width: 380px;
   align-self: center;
   list-style: none;
 }
@@ -32,4 +33,14 @@
   flex-direction: column;
   justify-content: center;
   gap: 10px;
+}
+
+.profile-info.compact {
+  margin-bottom: 0.3em;
+}
+
+.profile-info.compact ul {
+  width: 480px;
+  align-self: center;
+  list-style: none;
 }

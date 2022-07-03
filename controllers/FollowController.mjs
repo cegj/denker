@@ -3,14 +3,52 @@ import { User } from "../models/User.mjs";
 
 export default class FollowController{
 
-  static async CheckIsFollowing(req, res, idUserFollowed){
+  async getFollows(userId){
+
+    const user = userId || req.session.userid;
+
+    let data = {};
+
+    try {
+      let following = await Follow.findAll({
+        where: {
+          followerId: userId
+        },
+        include: {
+          model: User,
+          as: 'followed'
+        }
+      })
+      
+      data.following = following.map((result) => result.get({plain: true}))
+
+      let followers = await Follow.findAll({
+        where: {
+          followedId: userId
+        },
+        include: {
+          model: User,
+          as: 'follower'
+        }
+      })
+
+      data.followers = followers.map((result) => result.get({plain: true}))
+
+      console.log(data)
+      return data
+    } catch(err){
+      console.log("ERRO: " + err)
+    }
+  }
+
+  static async CheckIsFollowing(req, res, followedId){
 
     const userId = req.session.userid
 
     const userData = await Follow.findOne({
       where: {
-        idUserFollowed: idUserFollowed, 
-        UserId: userId
+        followedId: followedId, 
+        followerId: userId
       },
       plain: true
     })
@@ -19,8 +57,7 @@ export default class FollowController{
     return userData;
   }
 
-   static async followUnfollow(req, res){
-    console.log(req.params)
+  static async followUnfollow(req, res){
     const userId = req.session.userid;
     const userToFollow = req.params.userToFollow;
 
@@ -35,8 +72,8 @@ export default class FollowController{
     console.log("NÃO SEGUE")
 
     const follow = {
-      idUserFollowed: userToFollow,
-      UserId: userId
+      followedId: userToFollow,
+      followerId: userId
     }
 
     Follow.create(follow)
@@ -45,5 +82,45 @@ export default class FollowController{
         res.redirect(req.headers.referer)
       })
     })
-    }
   }
+
+  static async showFollowing(req, res){
+    const userId = req.params.id || req.session.userid;
+
+    const userData = await User.findOne({
+      where: {id: userId},
+      plain: true,
+    })
+
+    if (!userData){
+      res.redirect('/');
+      return
+    }
+
+    const user = userData.get({plain: true})
+
+    user.follows = await FollowController.prototype.getFollows(user.id);
+  
+    res.render('denkes/following', {user})
+  }
+
+  static async showFollowers(req, res){
+    const userId = req.params.id || req.session.userid;
+
+    const userData = await User.findOne({
+      where: {id: userId},
+      plain: true,
+    })
+
+    if (!userData){
+      res.redirect('/');
+      return
+    }
+
+    const user = userData.get({plain: true})
+
+    user.follows = await FollowController.prototype.getFollows(user.id);
+  
+    res.render('denkes/followers', {user})
+  }
+}

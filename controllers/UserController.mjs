@@ -1,6 +1,7 @@
 import { Denke } from "../models/Denke.mjs";
 import { User } from "../models/User.mjs";
 import { Op } from "sequelize";
+import FollowController from "./FollowController.mjs";
 
 export default class UserController{
   static async showProfile(req, res){
@@ -9,7 +10,7 @@ export default class UserController{
 
     const userData = await User.findOne({
       where: {id: userId},
-      plain: true
+      plain: true,
     })
 
     if (!userData){
@@ -17,8 +18,11 @@ export default class UserController{
       return
     }
 
-    const user = userData.dataValues;
+    const user = userData.get({plain: true})
 
+    user.follows = await FollowController.prototype.getFollows(user.id);
+
+    // USER DENKES
     let search = '';
     if (req.query.search){
       search = req.query.search
@@ -69,9 +73,7 @@ export default class UserController{
         denke.thereIsReplies = true;
       };
     })
-
-    console.log(denkes)
-
+    
     res.render('denkes/profile', {user, denkes, thereIsNoDenke})
   }
 }

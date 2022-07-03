@@ -1,0 +1,38 @@
+<div class="dashboard">
+  <div class="title-container">
+    <h2>Seguindo</h2>
+  </div>
+  <section class="profile-info">
+    <img alt="{{user.name}}" class="avatar-photo" src="https://www.gravatar.com/avatar/{{user.hashedEmail}}?s=100">
+    <ul>
+      <li>@{{user.username}} ({{user.name}})</li>
+      <li>{{user.email}}</li>
+      <li>Entrou em <span data-date>{{user.createdAt}}</span></li>
+    </ul>
+    <div>
+      <div><a href="/user/{{user.id}}/following"><i class="bi bi-person-fill"></i> {{user.follows.following.length}} seguindo</a></div>
+      <div><a href="/user/{{user.id}}/followers"><i class="bi bi-person-fill"></i> {{user.follows.followers.length}} seguidores</a></div>
+      <form action="/user/{{user.id}}/follow" method="post">
+        <button style="color: #ff3e5f" type="submit"><i class="bi bi-plus-circle-fill"></i> <b>Seguir</b></button>
+      </form>
+    </div>
+  </section>
+  <ul>
+    {{#each user.follows.following}}
+      <li class="profile-info compact">
+        <img alt="{{this.followed.name}}" class="avatar-photo" src="https://www.gravatar.com/avatar/{{this.followed.hashedEmail}}?s=50">
+        <ul>
+          <li><a href="/user/{{this.followed.id}}">@{{this.followed.username}}</a> ({{this.followed.name}})</li>
+          <li>Seguindo desde <span data-date>{{this.followed.createdAt}}</span></li>
+        </ul>
+        <div>
+          <form action="/user/{{this.followed.id}}/follow" method="post">
+            <button style="color: #ff3e5f" type="submit"><i class="bi bi-plus-circle-fill"></i> <b>Seguir</b></button>
+          </form>
+        </div>
+      </li>
+    {{/each}}
+  </ul>
+</div>
+
+<script src="/assets/js/formatDate.js"></script>
