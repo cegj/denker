@@ -17,7 +17,7 @@
 
 ## what is it?
 
-Denker is a social network to post yout thoughts, to read your friend's thoughts and comment on them.
+Denker is a social network to post yout thoughts, to read your friend's thoughts and to comment on them.
 
 "Denker" means "thinker" in German.
 
